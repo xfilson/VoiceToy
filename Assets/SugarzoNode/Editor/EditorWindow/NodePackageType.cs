@@ -21,7 +21,7 @@ namespace SugarFrame.Node
         public static List<string> GetAllTypeStr()
         {
             List<string> result = new List<string>();
-            var data = AssetDatabase.LoadAssetAtPath<NodePackageType>("Assets/SugarzoNode/Editor/EditorWindow/节点分类包和路径.asset");
+            var data = AssetDatabase.LoadAssetAtPath<NodePackageType>("Assets/SugarzoNode/Editor/EditorWindow/鑺傜偣鍒嗙被鍖呭拰璺緞.asset");
             data.packageTypes.ForEach(x => result.Add(x.packageType));
             return result;
         }
@@ -29,7 +29,7 @@ namespace SugarFrame.Node
         public static string GetPathByType(string nodeType)
         {
             string result = string.Empty;
-            var data = AssetDatabase.LoadAssetAtPath<NodePackageType>("Assets/SugarzoNode/Editor/EditorWindow/节点分类包和路径.asset");
+            var data = AssetDatabase.LoadAssetAtPath<NodePackageType>("Assets/SugarzoNode/Editor/EditorWindow/鑺傜偣鍒嗙被鍖呭拰璺緞.asset");
             data.packageTypes.ForEach(x =>
             { 
                 if(x.packageType == nodeType)

@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf57b272e67049d4e8dfb0b390253584, type: 3}
   m_Name: "\u8282\u70B9\u521B\u5EFA-\u89E6\u53D1\u5668\u8282\u70B9"
   m_EditorClassIdentifier: 
-  createPath: Assets/SugarzoNode/NodeRuntimeExtra/SugarzoFrame/Trigger
-  createFileName: DialogueTrigger
+  createPath: Assets/SugarzoNode/NodeRuntime/VoiceToyStateNode/Trigger
+  createFileName: EventTypeTrigger
   prototype: {fileID: 4900000, guid: 31cb5a5237b8b8d419a89db6b8082f43, type: 3}
-  code: "using UnityEngine;\r\n\r\nnamespace SugarFrame.Node\r\n{\r\n    [NodeNote(\"\u5BF9\u8BDD\u4E8B\u4EF6\u76D1\u542C\u5668\",
-    \"SugarzoFrame\")]\r\n    public class DialogueTrigger : BaseTrigger\r\n    {\r\n       
-    //Called on Enable\r\n        public override void RegisterSaveTypeEvent()\r\n       
-    {\r\n            //EventManager.StartListening(\"\",Execute);\r\n        }\r\n\r\n       
-    //Called on DisEnable\r\n        public override void DeleteSaveTypeEvent()\r\n       
-    {\r\n            //EventManager.StopListening(\"\",Execute);\r\n        }\r\n   
-    }\r\n\r\n}"
+  code: "using UnityEngine;\n\nnamespace SugarFrame.Node\n{\n    [NodeNote(\"\u6E38\u620F\u4E8B\u4EF6\u76D1\u542C\u5668\",
+    \"VoiceToy\")]\n    public class EventTypeTrigger : BaseTrigger\n    {\n       
+    //Called on Enable\n        public override void RegisterSaveTypeEvent()\n       
+    {\n            //EventManager.StartListening(\"\",Execute);\n        }\n\n       
+    //Called on DisEnable\n        public override void DeleteSaveTypeEvent()\n       
+    {\n            //EventManager.StopListening(\"\",Execute);\n        }\n    }\n\n}"
   upFolderName: Trigger
-  nodeNote: "\u5BF9\u8BDD\u4E8B\u4EF6\u76D1\u542C\u5668"
-  packageType: SugarzoFrame
+  nodeNote: "\u6E38\u620F\u4E8B\u4EF6\u76D1\u542C\u5668"
+  packageType: VoiceToy

@@ -15,5 +15,5 @@ MonoBehaviour:
   packageTypes:
   - packageType: UnityBase
     nodeScriptsPath: Assets/SugarzoNode/NodeRuntime/StateNode
-  - packageType: SugarzoFrame
-    nodeScriptsPath: Assets/SugarzoNode/NodeRuntimeExtra/SugarzoFrame
+  - packageType: VoiceToy
+    nodeScriptsPath: Assets/SugarzoNode/NodeRuntime/VoiceToyStateNode
