@@ -383,9 +383,9 @@ namespace SugarFrame.Node
         /// </summary>
         protected void ChangeTitleColor()
         {
-            Color runningColor = new Color(0.37f, 1,1,1f); //Ç³À¶
-            Color compeletedColor = new Color(0.5f,1,0.37f,1f); //Ç³ÂÌ
-            Color portColor = new Color(0.41f, 0.72f,0.72f,1f); //»ÒÀ¶
+            Color runningColor = new Color(0.37f, 1,1,0.7f); //Ç³À¶
+            Color compeletedColor = new Color(0.5f,1,0.37f,0.7f); //Ç³ÂÌ
+            Color portColor = new Color(0.41f, 0.72f,0.72f,0.7f); //»ÒÀ¶
 
             nodes.ForEach(x =>
             {
