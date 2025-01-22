@@ -52,4 +52,6 @@ public static class GameObjectExtensions
         // 如果在当前对象及其所有父对象上都没有找到该脚本组件，则返回null
         return null;
     }
+    
+    
 }
