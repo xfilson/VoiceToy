@@ -88,14 +88,18 @@ public class CustomCourseEditor : OdinMenuEditorWindow
                             string newVariantPath = Path.Combine(Path.GetDirectoryName(objPath), Path.GetFileNameWithoutExtension(objPath) + "_root.prefab");
                             // 保存为新的 Prefab 变体
                             PrefabUtility.SaveAsPrefabAsset(instantiatedPrefab, newVariantPath);
-                            DestroyImmediate(instantiatedPrefab);
                             AssetDatabase.Refresh();
                             //创建新的timeline，并重设binding;
                             string newTimelinePath = Path.Combine(Path.GetDirectoryName(objPath), Path.GetFileNameWithoutExtension(objPath) + "_timeline.asset");
+                            AssetDatabase.CopyAsset(CourseTimelineTemplatePath, newTimelinePath);
+                            AssetDatabase.Refresh();
                             GameObject newVariantGameObject = AssetDatabase.LoadAssetAtPath<GameObject>(newVariantPath);
-                            TimelineAssetCopier.CopyTimelineAssetWithBindings(courseLogicTemplateAsset, newVariantGameObject, newTimelinePath);
+                            var oldPlayableDirector = instantiatedPrefab.GetComponent<PlayableDirector>();
                             var instantiatedPrefabPlayableDirector = newVariantGameObject.GetComponent<PlayableDirector>();
                             instantiatedPrefabPlayableDirector.playableAsset = AssetDatabase.LoadAssetAtPath<TimelineAsset>(newTimelinePath);
+                            //playable binding修复;
+                            TimelineAssetCopier.CopyPlayableDirectorTimeline(oldPlayableDirector, instantiatedPrefabPlayableDirector);
+                            DestroyImmediate(instantiatedPrefab);
                             PrefabUtility.SaveAsPrefabAsset(newVariantGameObject, newVariantPath);
                             AssetDatabase.Refresh();
                             //设置timelineAsset;

@@ -1,99 +1,57 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 using UnityEditor;
 
 public static class TimelineAssetCopier
 {
-    /// <summary>
-    /// 复制 TimelineAsset 并更新绑定到新的 GameObject。
-    /// </summary>
-    /// <param name="originalTimelineAsset">原始 TimelineAsset。</param>
-    /// <param name="newGameObject">新的 GameObject，绑定将更新到此 GameObject 或其子对象。</param>
-    /// <param name="newPath">新 TimelineAsset 的保存路径。</param>
-    public static void CopyTimelineAssetWithBindings(TimelineAsset originalTimelineAsset, GameObject newGameObject, string newPath)
+    public static void CopyPlayableDirectorTimeline(PlayableDirector rawPlayableDirector, PlayableDirector targetPlayableDirector)
     {
-        if (originalTimelineAsset == null)
+        var targetSO = new SerializedObject(targetPlayableDirector);
+        var targetSceneBindings = targetSO.FindProperty("m_SceneBindings");
+        var bindingsKv = new Dictionary<Object, Object>();
+        for (var i = 0; i < targetSceneBindings.arraySize; i++)
         {
-            Debug.LogError("Original TimelineAsset is null.");
-            return;
-        }
+            var bindingElement = targetSceneBindings.GetArrayElementAtIndex(i);
+            // key是源文件的轨道对象，value是当前文件的绑定value
+            var key = bindingElement.FindPropertyRelative("key").objectReferenceValue;
+            var val = bindingElement.FindPropertyRelative("value").objectReferenceValue;
 
-        if (newGameObject == null)
-        {
-            Debug.LogError("New GameObject is null.");
-            return;
-        }
-
-        if (string.IsNullOrEmpty(newPath))
-        {
-            Debug.LogError("Invalid new path for TimelineAsset.");
-            return;
-        }
-
-        // 获取原始 TimelineAsset 的路径
-        string originalPath = AssetDatabase.GetAssetPath(originalTimelineAsset);
-
-        // 复制 TimelineAsset 到新路径
-        AssetDatabase.CopyAsset(originalPath, newPath);
-        AssetDatabase.Refresh();
-
-        // 加载新复制的 TimelineAsset
-        TimelineAsset copiedTimelineAsset = AssetDatabase.LoadAssetAtPath<TimelineAsset>(newPath);
-        if (copiedTimelineAsset == null)
-        {
-            Debug.LogError("Failed to load the copied TimelineAsset.");
-            return;
-        }
-
-        // 更新绑定到新的 GameObject 或其子对象
-        UpdateBindings(copiedTimelineAsset, newGameObject);
-
-        // 保存新的 TimelineAsset
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
-
-        Debug.Log($"TimelineAsset copied and bindings updated successfully to: {newPath}");
-    }
-
-    private static void UpdateBindings(TimelineAsset timelineAsset, GameObject newGameObject)
-    {
-        // 创建一个临时的 PlayableDirector 来管理绑定
-        GameObject tempDirectorObject = new GameObject("TempPlayableDirector");
-        PlayableDirector playableDirector = tempDirectorObject.AddComponent<PlayableDirector>();
-        playableDirector.playableAsset = timelineAsset;
-
-        // 获取当前绑定信息
-        var originalBindings = timelineAsset.outputs;
-
-        // 清空旧的绑定
-        var serializedObject = new SerializedObject(playableDirector);
-        var bindingsProperty = serializedObject.FindProperty("m_SceneBindings");
-        bindingsProperty.ClearArray();
-
-        // 更新绑定到新的 GameObject 或其子对象
-        foreach (var binding in originalBindings)
-        {
-            UnityEngine.Object newBindingObject = FindObjectInNewHierarchy(newGameObject, binding.sourceObject.name);
-            if (newBindingObject != null)
+            if (key == null)
             {
-                // 设置新的绑定
-                int index = bindingsProperty.arraySize;
-                bindingsProperty.InsertArrayElementAtIndex(index);
-                var element = bindingsProperty.GetArrayElementAtIndex(index);
-                element.FindPropertyRelative("key").objectReferenceValue = binding.sourceObject;
-                element.FindPropertyRelative("value").objectReferenceValue = newBindingObject;
+                continue;
+            }
+            bindingsKv.Add(key, val);
+        }
+        // 移除无用的绑定
+        while (targetSceneBindings.arraySize > 0)
+        {
+            targetSceneBindings.DeleteArrayElementAtIndex(0);
+        }
+        targetSO.ApplyModifiedProperties();
+
+        // // 设置有效绑定
+        // foreach (var kv in bindingsKv)
+        // {
+        //     targetPlayableDirector.SetGenericBinding(kv.Key, kv.Value);
+        // }
+        
+        // 设置有效绑定 (新老timeline资源outputs顺序完全一致)
+        var lstout = rawPlayableDirector.playableAsset.outputs.ToList();
+        var newout = targetPlayableDirector.playableAsset.outputs.ToList();
+        for (int i = 0; i < lstout.Count; i++)
+        {
+            var lstTrack = lstout[i].sourceObject as TrackAsset;
+            var newTrack = newout[i].sourceObject as TrackAsset;
+
+            if (bindingsKv.ContainsKey(lstTrack))
+            {
+                targetPlayableDirector.SetGenericBinding(newTrack, bindingsKv[lstTrack]);
             }
         }
-
-        // 应用修改
-        serializedObject.ApplyModifiedProperties();
-        Object.DestroyImmediate(tempDirectorObject);
     }
 
-    private static UnityEngine.Object FindObjectInNewHierarchy(GameObject newGameObject, string path)
-    {
-        Transform foundTransform = newGameObject.transform.Find(path);
-        return foundTransform != null ? foundTransform.gameObject : null;
-    }
+    
 }
