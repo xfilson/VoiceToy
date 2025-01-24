@@ -4,11 +4,8 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioClipPlayer))]
 public class CharacterBase : MonoBehaviour
 {
-    [HideInInspector]
-    public AudioClipPlayer _audioClipPlayer;
 
     public Animator animator_character;
     public Animator animator_zuiba;
@@ -19,15 +16,9 @@ public class CharacterBase : MonoBehaviour
     
     private void Awake()
     {
-        this._audioClipPlayer = this.gameObject.TryGetComponent<AudioClipPlayer>();
         this._loopAnimatorState_character = this.animator_character.gameObject.TryGetComponent<LoopAnimatorState>();
         this._loopAnimatorState_zuiba = this.animator_zuiba.gameObject.TryGetComponent<LoopAnimatorState>();
         this._loopAnimatorState_eyes = this.animator_eyes.gameObject.TryGetComponent<LoopAnimatorState>();
-    }
-    
-    public void ReqPlayAudioClip(AudioClip audioClip)
-    {
-        this._audioClipPlayer.PlayAudioClip(audioClip, null);
     }
 
     public void ReqScenePlayAudioClip(AudioClip audioClip)
@@ -98,7 +89,6 @@ public class CharacterBase : MonoBehaviour
         this.PlayAnimator_zuiba("random_say");
         this.PlayAnimator_eyes("think1,1");
         yield return null;
-        this._audioClipPlayer.PlayAudioClip(audioClip, onPlayComplete);
     }
 
     public void OnSayEnd()
@@ -108,6 +98,19 @@ public class CharacterBase : MonoBehaviour
         this._loopAnimatorState_eyes.SetLoopCheck(false);
         // this.animator_eyes.StopPlayback();
         // this.animator_zuiba.StopPlayback();
+        this.PlayAnimator_zuiba("idle");
+        this.PlayAnimator_eyes("idle");
+    }
+
+
+    public void SayStart()
+    {
+        this.PlayAnimator_zuiba("random_say");
+        this.PlayAnimator_eyes("think1,1");
+    }
+
+    public void SayEnd()
+    {
         this.PlayAnimator_zuiba("idle");
         this.PlayAnimator_eyes("idle");
     }

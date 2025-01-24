@@ -89,6 +89,7 @@ public class CustomCourseEditor : OdinMenuEditorWindow
                             // 保存为新的 Prefab 变体
                             PrefabUtility.SaveAsPrefabAsset(instantiatedPrefab, newVariantPath);
                             AssetDatabase.Refresh();
+                            obj.courseLogicTemplate = AssetDatabase.LoadAssetAtPath<GameObject>(newVariantPath).GetComponent<CourseLogicTemplate>();
                             //创建新的timeline，并重设binding;
                             string newTimelinePath = Path.Combine(Path.GetDirectoryName(objPath), Path.GetFileNameWithoutExtension(objPath) + "_timeline.asset");
                             AssetDatabase.CopyAsset(CourseTimelineTemplatePath, newTimelinePath);

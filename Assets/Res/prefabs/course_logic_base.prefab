@@ -53,10 +53,10 @@ MonoBehaviour:
   env_audio_track_name: "\u73AF\u5883\u97F3\u8F68\u9053"
   teacher_say_signal_track_name: "\u8001\u5E08\u8BF4\u8BDD\u4FE1\u53F7\u8F68\u9053"
   student_say_signal_track_name: "\u5B66\u751F\u8BF4\u8BDD\u4FE1\u53F7\u8F68\u9053"
-  teacher_startSignal: {fileID: 11400000, guid: a9176769821faad4381576b13dff697c, type: 2}
-  teacher_endSignal: {fileID: 11400000, guid: a4683ca2a2c54be48af3871c035d1623, type: 2}
-  student_startSignal: {fileID: 11400000, guid: 63897f7cc77234a48bfa99f35911bcd9, type: 2}
-  student_endSignal: {fileID: 11400000, guid: 3d8fbf8335568ec47b745064ea60d3c2, type: 2}
+  teacher_startSignal: {fileID: 11400000, guid: 758cd476737c248688378d97d6a0d500, type: 2}
+  teacher_endSignal: {fileID: 11400000, guid: 612f90ee3e9304c53b9828f651194ef6, type: 2}
+  student_startSignal: {fileID: 11400000, guid: fe3455ed44eee496b9e99c1207f8e271, type: 2}
+  student_endSignal: {fileID: 11400000, guid: d23f49d9b37ea4287b47c37e3f20cc25, type: 2}
 --- !u!320 &7412397067729835617
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 364124574434372870}
   - component: {fileID: 4084848019631902350}
+  - component: {fileID: 4022077278371871632}
   m_Layer: 0
   m_Name: "\u8001\u5E08\u8BF4\u8BDD\u8D77\u59CB\u4FE1\u53F7\u53D1\u9001\u5668"
   m_TagString: Untagged
@@ -131,6 +132,18 @@ MonoBehaviour:
   m_Events:
     m_Signals: []
     m_Events: []
+--- !u!114 &4022077278371871632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4050315797606113304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d572d71770744a12b5567801c12a1ab9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6297163793982711624
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,6 +410,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3678421442412432077}
   - component: {fileID: 4338069252028132666}
+  - component: {fileID: 4541828687741660580}
   m_Layer: 0
   m_Name: "\u5B66\u751F\u8BF4\u8BDD\u8D77\u59CB\u4FE1\u53F7\u53D1\u9001\u5668"
   m_TagString: Untagged
@@ -434,6 +448,18 @@ MonoBehaviour:
   m_Events:
     m_Signals: []
     m_Events: []
+--- !u!114 &4541828687741660580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7492117834686413366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d572d71770744a12b5567801c12a1ab9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7510314095598137087
 GameObject:
   m_ObjectHideFlags: 0

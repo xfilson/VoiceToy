@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace.config;
 using DefaultNamespace.config.dialogue;
 using UnityEngine;
 
-public class CourceManager : MonoBehaviour
+public class CourceManager : SingletonMono<CourceManager>
 {
     public enum CourceTemplateType
     {
@@ -15,7 +16,8 @@ public class CourceManager : MonoBehaviour
         End,
     }
 
-    public CourseTemplate curCourseData;
+    //当前的课程数据;
+    public CourseConfigItem CourseConfigItem;
     public CharacterBase character_teacher;
     public CharacterBase character_student;
     
@@ -31,6 +33,10 @@ public class CourceManager : MonoBehaviour
     public const string Event_Teacher_Say_End = "teacher_say_end";
     //学生说话结束
     public const string Event_Student_Say_End = "student_say_end";
+    //老师说话开始
+    public const string Event_Teacher_Say_Start = "teacher_say_start";
+    //学生说话开始
+    public const string Event_Student_Say_Start = "student_say_start";
 
     #endregion
     
@@ -39,130 +45,40 @@ public class CourceManager : MonoBehaviour
         EventManager.AddListener(Event_Cource_Start, null, this.OnCourceStart);
         EventManager.AddListener(Event_Teacher_Say_End, null, this.OnTeacherSayEnd);
         EventManager.AddListener(Event_Student_Say_End, null, this.OnStudentSayEnd);
+        EventManager.AddListener(Event_Teacher_Say_Start, null, this.OnTeacherSayStart);
+        EventManager.AddListener(Event_Student_Say_Start, null, this.OnStudentSayStart);
+    }
+
+    private void OnStudentSayStart(string eventtype, object sender, object param)
+    {
+        this.character_student.SayStart();
+    }
+
+    private void OnTeacherSayStart(string eventtype, object sender, object param)
+    {
+        this.character_teacher.SayStart();
     }
 
     private void OnCourceStart(string eventtype, object sender, object param)
     {
-        this.CheckNextSegment();
+        if (CourseConfigItem != null)
+        {
+            var newLogicGo = GameObject.Instantiate(CourseConfigItem.courseLogicTemplate)
+                .GetComponent<CourseLogicTemplate>();
+            newLogicGo.PlayCourse();
+        }
     }
     
     private void OnTeacherSayEnd(string eventtype, object sender, object param)
     {
-        this.CheckNextSegment();
+        // this.CheckNextSegment();
+        this.character_teacher.SayEnd();
     }
     
     private void OnStudentSayEnd(string eventtype, object sender, object param)
     {
-        this.CheckNextSegment();
-    }
-
-    private void CheckNextSegment()
-    {
-        switch (this._courceTemplateType)
-        {
-            case CourceTemplateType.None:
-                this._courceTemplateType = CourceTemplateType.teacher_opening_remark;
-                this.CheckNextSegment();
-                break;
-            case CourceTemplateType.teacher_opening_remark:
-                this.Goto_teacher_opening_remark();
-                break;
-            case CourceTemplateType.sectioning:
-                this.Goto_sectioning();
-                break;
-            case CourceTemplateType.teacher_concluding_remark:
-                this.Goto_teacher_concluding_remark();
-                break;
-            case CourceTemplateType.End:
-                break;
-        }
-    }
-
-    private void Goto_sectioning()
-    {
-        if (this._sectionIndex < this.curCourseData.sectionList.Count)
-        {
-            do
-            {
-                var curSectionData = this.curCourseData.sectionList[this._sectionIndex];
-                if (this._eventIndex < curSectionData.itemList.Count)
-                {
-                    var itemData = curSectionData.itemList[this._eventIndex];
-                    var sentenceItem = itemData.teacher_opening_remark.GetRandomItem();
-                    if (sentenceItem != null)
-                    {
-                        this._eventIndex++;
-                        string eventEndString = Event_Teacher_Say_End;
-                        CharacterBase curCharacter = character_teacher;
-                        switch (itemData.eventType)
-                        {
-                            case CourceEventType.Teacher:
-                                eventEndString = Event_Teacher_Say_End;
-                                curCharacter = character_teacher;
-                                break;
-                            case CourceEventType.Student:
-                                eventEndString = Event_Student_Say_End;
-                                curCharacter = character_student;
-                                break;
-                        }
-                        curCharacter.OnSayStart(sentenceItem.audioClip, () =>
-                        {
-                            StartCoroutine(this.OnCharacterSayEnd(curCharacter, eventEndString));
-                        });      
-                        break;
-                    }
-                }
-                this._sectionIndex++;
-                this._eventIndex = 0;
-                this.CheckNextSegment();
-            } while (false);
-        }
-        else
-        {
-            this._courceTemplateType = CourceTemplateType.teacher_concluding_remark;
-            this.CheckNextSegment();
-        }
-    }
-
-    private void Goto_teacher_concluding_remark()
-    {
-        this._courceTemplateType = CourceTemplateType.End;
-        if (this.curCourseData.teacher_concluding_remark != null)
-        {
-            var itemData = this.curCourseData.teacher_concluding_remark.GetRandomItem();
-            character_teacher.OnSayStart(itemData.audioClip, () =>
-            {
-                StartCoroutine(this.OnCharacterSayEnd(character_teacher, Event_Teacher_Say_End));
-            });
-        }
-        else
-        {
-            this.CheckNextSegment();
-        }
-    }
-
-    private void Goto_teacher_opening_remark()
-    {
-        this._courceTemplateType = CourceTemplateType.sectioning;
-        if (this.curCourseData.teacher_opening_remark != null)
-        {
-            var itemData = this.curCourseData.teacher_opening_remark.GetRandomItem();
-            character_teacher.OnSayStart(itemData.audioClip, () =>
-            {
-                StartCoroutine(this.OnCharacterSayEnd(character_teacher, Event_Teacher_Say_End));
-            });
-        }
-        else
-        {
-            this.CheckNextSegment();
-        }
-    }
-
-    private IEnumerator OnCharacterSayEnd(CharacterBase character, string eventSayEndSendType)
-    {
-        character.OnSayEnd();
-        yield return null;
-        EventManager.DispatchEvent(eventSayEndSendType, null);
+        // this.CheckNextSegment();
+        this.character_student.SayEnd();
     }
 
     private void OnDestroy()

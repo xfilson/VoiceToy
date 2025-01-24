@@ -1,7 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using DefaultNamespace;
 using Sirenix.OdinInspector;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -33,11 +39,25 @@ public class CourseLogicTemplate : MonoBehaviour
     public SignalAsset student_startSignal;    // 开始信号
     [BoxGroup("发射信号/学生")]
     public SignalAsset student_endSignal;      // 结束信号
+
+    private PlayableDirector _playableDirector;
+    private void Awake()
+    {
+        _playableDirector = this.gameObject.GetComponent<PlayableDirector>();
+    }
+
+    public void PlayCourse()
+    {
+        _playableDirector.Play();
+    }
+
+#if UNITY_EDITOR
     [BoxGroup("辅助工具")]
     [InfoBox("自动化调整时间轴, 自动纠正音频开始结束发送信号", InfoMessageType.Info)]
     [Button(ButtonSizes.Medium)]
     [VerticalGroup("辅助工具/ButtonGroup")]
-    public void MyButton()
+    [LabelText("自动调整")]
+    public void AutoAdjust()
     {
         var curPlayableDirector = this.gameObject.GetComponent<PlayableDirector>();
         // 获取 Timeline 的所有轨道
@@ -84,6 +104,17 @@ public class CourseLogicTemplate : MonoBehaviour
         {
             Debug.LogError("轨道数据不完整");
         }
+
+        forceRefreshTimeline();
+    }
+
+    private async void forceRefreshTimeline()
+    {
+        var preSelectionedObject = Selection.activeGameObject;
+        var tmpChildTrans = preSelectionedObject.transform.GetChild(0);
+        Selection.activeGameObject = tmpChildTrans.gameObject;
+        await Task.Delay(TimeSpan.FromSeconds(0.03f));
+        Selection.activeGameObject = preSelectionedObject;
     }
 
     private void ResetSignalTrackByAudioTrack(SignalTrack signalTrack, AudioTrack audioTrack, SignalAsset startSignal, SignalAsset endSignal)
@@ -113,7 +144,8 @@ public class CourseLogicTemplate : MonoBehaviour
     void AddSignalEvent(SignalTrack signalTrack, double time, SignalAsset signalAsset)
     {
         // 添加到 Signal 轨道
-        var signalEmitter = signalTrack.CreateMarker<SignalEmitter>(time);
-        signalEmitter.asset = signalAsset;
+        var courseSignalEmitter = signalTrack.CreateMarker<CourseSignalEmitter>(time);
+        courseSignalEmitter.asset = signalAsset;
     }
+#endif
 }
