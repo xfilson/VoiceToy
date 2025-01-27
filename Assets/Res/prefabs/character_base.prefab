@@ -124,6 +124,19 @@ MonoBehaviour:
   animator_character: {fileID: 1179502005766218019}
   animator_zuiba: {fileID: 7135916111825137926}
   animator_eyes: {fileID: 1461991697811645608}
+  zuiba_spriteRenderer: {fileID: 2171034863039761892}
+  zuixingConfigItems:
+  - amplitudeRange: {x: 0, y: 0.001}
+    sprite: {fileID: 21300000, guid: 3ee3df26e9b38314788b33a5db2ead33, type: 3}
+  - amplitudeRange: {x: 0.001, y: 0.02}
+    sprite: {fileID: 21300000, guid: 767893310058d614cb83d34eb2922728, type: 3}
+  - amplitudeRange: {x: 0.02, y: 0.04}
+    sprite: {fileID: 21300000, guid: 4869200cb41f76349b1bdbe1b6df67b5, type: 3}
+  - amplitudeRange: {x: 0.04, y: 10000}
+    sprite: {fileID: 21300000, guid: 18eacdee2ceba644eaaed12be878d288, type: 3}
+  curZuixingConfigItem:
+    amplitudeRange: {x: 0, y: 0}
+    sprite: {fileID: 0}
 --- !u!1 &830758087544711463
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 153dbd747b484d89a069612701b756ee, type: 3}
-  m_Name: New CourseConfigItem
+  m_Script: {fileID: 11500000, guid: 645d3b34a24c450492cf8737e5154415, type: 3}
+  m_Name: lip_audio_amplitude
   m_EditorClassIdentifier: 
-  Icon: {fileID: 0}
-  Name: 
-  comment: 
-  courseLogicTemplate: {fileID: 0}
-  Description: 
+  param: 
