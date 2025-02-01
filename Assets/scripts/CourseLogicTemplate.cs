@@ -17,7 +17,11 @@ using UnityEngine.Timeline;
 /// <summary>
 /// 课程项逻辑脚本;
 ///
+/// Timelne Api
 /// https://blog.csdn.net/weixin_39889192/article/details/139257772
+///
+/// lipsync 嘴型
+/// https://github.com/DanielSWolf/rhubarb-lip-sync
 /// </summary>
 [RequireComponent(typeof(PlayableDirector))]
 public class CourseLogicTemplate : MonoBehaviour
