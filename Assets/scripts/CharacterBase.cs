@@ -4,20 +4,6 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
 
-[Serializable]
-public class ZuixingConfigItem
-{
-    //振幅范围;
-    public Vector2 amplitudeRange = new Vector2(0, 0);
-    //图片;
-    public Sprite sprite;
-
-    public bool IsInRange(float amplitude)
-    {
-        return amplitude >= amplitudeRange.x && amplitude < amplitudeRange.y;
-    }
-}
-
 public class CharacterBase : MonoBehaviour
 {
     public Animator animator_character;
@@ -27,38 +13,6 @@ public class CharacterBase : MonoBehaviour
     private LoopAnimatorState _loopAnimatorState_zuiba;
     private LoopAnimatorState _loopAnimatorState_eyes;
     public SpriteRenderer zuiba_spriteRenderer;
-    [Header("嘴型数据")]
-    public List<ZuixingConfigItem> zuixingConfigItems = new List<ZuixingConfigItem>();
-    [HideInInspector]
-    public ZuixingConfigItem curZuixingConfigItem = null;
-
-    public ZuixingConfigItem GetZuixingConfigItem(float amplitude)
-    {
-        if (curZuixingConfigItem != null)
-        {
-            if (curZuixingConfigItem.IsInRange(amplitude))
-            {
-                return curZuixingConfigItem;
-            }
-        }
-        for (int i = 0; i < zuixingConfigItems.Count; i++)
-        {
-            var curItem = zuixingConfigItems[i];
-            if (curItem.IsInRange(amplitude))
-            {
-                curZuixingConfigItem = curItem;
-                return curItem;
-            }
-        }
-        return null;
-    }
-    
-    public void RandomZuixingConfigItem()
-    {
-        int index = UnityEngine.Random.Range(0, zuixingConfigItems.Count);
-        var zuixingConfigItem =  zuixingConfigItems[index];
-        zuiba_spriteRenderer.sprite = zuixingConfigItem.sprite;
-    }
 
     private void Awake()
     {
@@ -83,15 +37,6 @@ public class CharacterBase : MonoBehaviour
     public void DispatchEventNoSender(string eventType)
     {
         EventManager.DispatchEvent(eventType, null);
-    }
-
-    public void UseLipAmplitude(float amplitude)
-    {
-        ZuixingConfigItem zuixingConfigItem = GetZuixingConfigItem(amplitude);
-        if (zuixingConfigItem != null)
-        {
-            zuiba_spriteRenderer.sprite = zuixingConfigItem.sprite;
-        }
     }
 
     public void PlayAnimator_zuiba(string param)

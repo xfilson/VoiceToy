@@ -1,5 +1,8 @@
-﻿namespace FriendlyMonster.RhubarbTimeline
+﻿using System;
+
+namespace FriendlyMonster.RhubarbTimeline
 {
+    [Serializable]
     public enum MouthShape
     {
         A,

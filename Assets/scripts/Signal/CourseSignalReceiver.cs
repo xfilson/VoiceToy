@@ -38,24 +38,6 @@ namespace DefaultNamespace
             }
             
             #endregion
-
-            #region 嘴型振幅的信号
-            CourseLipAudioAmplitudeEmitter lipAudioAmplitudeEmitter = notification as CourseLipAudioAmplitudeEmitter;
-            if (lipAudioAmplitudeEmitter && lipAudioAmplitudeEmitter.asset is CourseLipAudioAmplitudeAsset)
-            {
-                float amplitude = lipAudioAmplitudeEmitter.amplitude;
-                switch (lipAudioAmplitudeEmitter.eventSenderType)
-                {
-                    case EventSenderType.Student:
-                        CourceManager.Instance.character_student.RandomZuixingConfigItem();
-                        break;
-                    case EventSenderType.Teacher:
-                        CourceManager.Instance.character_teacher.RandomZuixingConfigItem();
-                        break;
-                }
-            }
-
-            #endregion
         }
     }
 }
