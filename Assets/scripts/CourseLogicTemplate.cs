@@ -13,6 +13,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
+using Object = UnityEngine.Object;
 
 /// <summary>
 /// 课程项逻辑脚本;
@@ -69,6 +70,34 @@ public class CourseLogicTemplate : MonoBehaviour
 
     public void PlayCourse()
     {
+        //换绑定对象;
+        var timelineAsset = _playableDirector.playableAsset as TimelineAsset;
+        var trackAssets = timelineAsset.GetOutputTracks();
+        foreach (var track in trackAssets)
+        {
+            if (track.name == teacher_say_lipsync_track_name)
+            {
+                var preBinding = _playableDirector.GetGenericBinding(track) as RhubarbSprite;
+                if (preBinding != null)
+                {
+                    preBinding.gameObject.SetActive(false);
+                }
+                _playableDirector.SetGenericBinding(track,
+                    CourceManager.Instance.character_teacher.zuiba_lipsync_sprite);
+                CourceManager.Instance.character_teacher.zuiba_lipsync_sprite.gameObject.SetActive(true);
+                
+            }else if (track.name == student_say_lipsync_track_name)
+            {
+                var preBinding = _playableDirector.GetGenericBinding(track) as RhubarbSprite;
+                if (preBinding != null)
+                {
+                    preBinding.gameObject.SetActive(false);
+                }
+                _playableDirector.SetGenericBinding(track,
+                    CourceManager.Instance.character_student.zuiba_lipsync_sprite);
+                CourceManager.Instance.character_student.zuiba_lipsync_sprite.gameObject.SetActive(true);
+            }
+        }
         _playableDirector.Play();
     }
 

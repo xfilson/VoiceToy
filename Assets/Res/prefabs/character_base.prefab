@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6078905429128095982}
-  - component: {fileID: 7135916111825137926}
   m_Layer: 0
   m_Name: zuiba
   m_TagString: Untagged
@@ -33,27 +32,6 @@ Transform:
   - {fileID: 3711489253547159405}
   m_Father: {fileID: 7406960231566503567}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &7135916111825137926
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532872417661065596}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1f28f8499aa89a8438800b9586d02131, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &661995977464846386
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,21 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator_character: {fileID: 1179502005766218019}
-  animator_zuiba: {fileID: 7135916111825137926}
   animator_eyes: {fileID: 1461991697811645608}
-  zuiba_spriteRenderer: {fileID: 2171034863039761892}
-  zuixingConfigItems:
-  - amplitudeRange: {x: 0, y: 0.001}
-    sprite: {fileID: 21300000, guid: 3ee3df26e9b38314788b33a5db2ead33, type: 3}
-  - amplitudeRange: {x: 0.001, y: 0.02}
-    sprite: {fileID: 21300000, guid: 767893310058d614cb83d34eb2922728, type: 3}
-  - amplitudeRange: {x: 0.02, y: 0.04}
-    sprite: {fileID: 21300000, guid: 4869200cb41f76349b1bdbe1b6df67b5, type: 3}
-  - amplitudeRange: {x: 0.04, y: 10000}
-    sprite: {fileID: 21300000, guid: 18eacdee2ceba644eaaed12be878d288, type: 3}
-  curZuixingConfigItem:
-    amplitudeRange: {x: 0, y: 0}
-    sprite: {fileID: 0}
+  zuiba_lipsync_sprite: {fileID: 7663607706819874442}
 --- !u!1 &830758087544711463
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,6 +626,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3711489253547159405}
   - component: {fileID: 2171034863039761892}
+  - component: {fileID: 7663607706819874442}
   m_Layer: 0
   m_Name: zuiba_1
   m_TagString: Untagged
@@ -724,7 +690,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3ee3df26e9b38314788b33a5db2ead33, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b889d2707c49b4c85bf1104fc4e61f32, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -735,6 +701,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7663607706819874442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5489435782695582996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb16aba89d64864448e0d7a09b736644, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rhubarbSpriteSet: {fileID: 11400000, guid: 5c8653f522ec84834867450b0f58b8aa, type: 2}
 --- !u!1 &5515739562991539690
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,5 +15,5 @@ MonoBehaviour:
   Icon: {fileID: 0}
   Name: 
   comment: 
-  courseLogicTemplate: {fileID: 0}
+  courseLogicTemplate: {fileID: 1500326934271702937, guid: 4d84fa2d846e84cf4b2c74967f3ee503, type: 3}
   Description: 

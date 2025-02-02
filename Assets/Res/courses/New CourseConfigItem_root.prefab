@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 143317789098440719, guid: c3cd25b14a1095543b270248772f6768, type: 3}
+      propertyPath: _rhubarbSpriteSet
+      value: 
+      objectReference: {fileID: 11400000, guid: 5c8653f522ec84834867450b0f58b8aa, type: 2}
     - target: {fileID: 850315897647466806, guid: c3cd25b14a1095543b270248772f6768, type: 3}
       propertyPath: student_say_lipsync_track_name
       value: "\u5B66\u751F\u5634\u578B\u8F68\u9053"
@@ -20,6 +24,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: New CourseConfigItem_root
       objectReference: {fileID: 0}
+    - target: {fileID: 2881052173557052819, guid: c3cd25b14a1095543b270248772f6768, type: 3}
+      propertyPath: _rhubarbSpriteSet
+      value: 
+      objectReference: {fileID: 11400000, guid: 5c8653f522ec84834867450b0f58b8aa, type: 2}
     - target: {fileID: 4112336086922299492, guid: c3cd25b14a1095543b270248772f6768, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.06
@@ -70,16 +78,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5503114491907475993, guid: c3cd25b14a1095543b270248772f6768, type: 3}
       propertyPath: m_Size.x
-      value: 4.08
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5503114491907475993, guid: c3cd25b14a1095543b270248772f6768, type: 3}
       propertyPath: m_Size.y
-      value: 3.34
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5503114491907475993, guid: c3cd25b14a1095543b270248772f6768, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 72652df22bad9844dabec60a3179a593, type: 3}
+      objectReference: {fileID: 21300000, guid: b889d2707c49b4c85bf1104fc4e61f32, type: 3}
     - target: {fileID: 5503114491907475993, guid: c3cd25b14a1095543b270248772f6768, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -122,16 +130,16 @@ PrefabInstance:
       objectReference: {fileID: 4036802175952880463, guid: 45ef0e62dd50a4864a287c88d99c4cfc, type: 2}
     - target: {fileID: 8018024862100126225, guid: c3cd25b14a1095543b270248772f6768, type: 3}
       propertyPath: m_Size.x
-      value: 4.08
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8018024862100126225, guid: c3cd25b14a1095543b270248772f6768, type: 3}
       propertyPath: m_Size.y
-      value: 3.34
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8018024862100126225, guid: c3cd25b14a1095543b270248772f6768, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: a7ecb1289662d0241985a2c54a3b4e9f, type: 3}
+      objectReference: {fileID: 21300000, guid: b889d2707c49b4c85bf1104fc4e61f32, type: 3}
     - target: {fileID: 8018024862100126225, guid: c3cd25b14a1095543b270248772f6768, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
