@@ -38,6 +38,20 @@ namespace DefaultNamespace
             }
             
             #endregion
+            
+            #region  特效类型的信号;
+
+            if (signalEmitter && signalEmitter.asset is CourseSignalEffectAsset)
+            {
+                CourseSignalEffectAsset signalEffectAsset = signalEmitter.asset as CourseSignalEffectAsset;
+                GameObject effectPrefab = signalEffectAsset.effectPrefab;
+                if (effectPrefab != null)
+                {
+                    EventManager.DispatchEvent(CourceManager.Event_SignalEffectAsset_Play, signalEffectAsset);   
+                }
+            }
+            
+            #endregion
         }
     }
 }
