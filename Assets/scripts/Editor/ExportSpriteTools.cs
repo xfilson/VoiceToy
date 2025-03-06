@@ -51,7 +51,7 @@ public class ExportSpriteContextMenu
                 Texture2D newTex = new Texture2D((int)rect.width, (int)rect.height);
                 newTex.SetPixels(pixels);
                 newTex.Apply();
-
+                
                 File.WriteAllBytes(Path.Combine(targetDir, $"{sprite.name}.png"), newTex.EncodeToPNG());
             }
         }
